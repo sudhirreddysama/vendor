@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+body {
+  font-family: Arial, Helvetica, sans-serif;
+  background-color: white;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+/* Add padding to containers */
+.container {
+  padding: 16px;
+  background-color: white;
+}
+
+/* Full-width input fields */
+input[type=first_name], input[type=last_name], input[type=email], input[type=password], input[type=dob], input[type=profile_picture] {
+  width: 25%;
+  padding: 10px;
+  margin: 5px 0 22px 0;
+  display: inline-block;
+  border: none;
+  background: #f1f1f1;
+}
+
+input[type=first_name]:focus, input[type=last_name]:focus, input[type=email]:focus, input[type=password]:focus, input[type=dob]:focus, input[type=profile_picture]:focus {
+  background-color: #ddd;
+  outline: none;
+}
+
+/* Overwrite default styles of hr */
+hr {
+  border: 1px solid #f1f1f1;
+  margin-bottom: 25px;
+}
+
+/* Set a style for the submit button */
+.submitbtn {
+  background-color: #FF0000;
+  color: white;
+  padding: 14px 20px;
+  margin: 8px 0;
+  border: none;
+  cursor: pointer;
+  width: 10%;
+  opacity: 0.9;
+}
+
+.submitbtn:hover {
+  opacity: 1;
+}
+
+/* Add a blue text color to links */
+a {
+  color: dodgerblue;
+}
+
+/* Set a grey background color and center the text of the "sign in" section */
+.signin {
+  background-color: #f1f1f1;
+  text-align: center;
+}
+</style>
+</head>
+<body>
+	<h1>
+		Login
+	</h1>
+
+	<form action="/sessions" method="POST">
+		<input type="hidden" name="authenticity_token" value="<%=form_authenticity_token%>">
+		<label for="email"><b>Email</b></label>
+		<input type="email" name="login[email]" placeholder="email">
+		<label for="password"><b>Password</b></label>
+		<input type="password" name="login[password]" placeholder="password">
+		<button type="submit" class="submitbtn">Submit</button>
+	</form>
+
+	<div class="errors">
+			<% if flash[:login_errors]%>
+					<% flash[:login_errors].each do |error| %>
+						<p> <%=error%></p>
+					<%end%>
+			<%end%>
+	</div>
+
+	<h1>
+		Registration
+	</h1>
+	<p>Please fill in this form to create an account.</p>
+
+	<form action="/users" method="POST">
+		<div class="container">
+
+			<input type="hidden" name="authenticity_token" value="<%=form_authenticity_token%>">
+			<label for="first_name"><b>First_Name</b></label>
+			<input type="first_name" name="user[first_name]" placeholder="first_name"><br>
+			<label for="last_name"><b>Last_Name</b></label>
+			<input type="last_name" name="user[last_name]" placeholder="last_name"><br>
+			<label for="email"><b>Email</b></label>
+			<input type="email" name="user[email]" placeholder="email"><br>
+			<label for="dob"><b>DateOfBirth</b></label>
+			<input type="dob" name="user[dob]" placeholder="dob"><br>
+			<label for="password"><b>Password</b></label>
+			<input type="password" name="user[password]" placeholder="password"><br>
+			<label for="profile_picture"><b>ProfilePicture</b></label>
+			<input type="profile_picture" name="user[profile_picture]" placeholder="profile_picture"><br>
+			<button type="submit" class="submitbtn">Submit</button>
+		</div>
+
+	</form>
+	<div class="errors">
+			<% if flash[:register_errors]%>
+					<% flash[:register_errors].each do |error| %>
+						<p> <%=error%></p>
+					<%end%>
+			<%end%>
+	</div>
+
+</body>
+</html>
